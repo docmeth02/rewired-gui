@@ -79,9 +79,9 @@ def initConfig(parent):
     else:
         config = wiredfunctions.loadConfig(configfile)
     parent.configFile = configfile
-
+    if config['trackerDNS'] == '""':
+        config['trackerDNS'] = ""
     if not exists(config['dbFile']):
-        print config['dbFile']
         file = open(config['dbFile'], 'w')
         file.close()
     if not exists(config['fileRoot']):

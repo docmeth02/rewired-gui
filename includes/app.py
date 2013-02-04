@@ -144,7 +144,6 @@ class gui:
         self.root.minsize(640, 480)
         self.root.maxsize(640, 480)
         self.root.title('re:wired Server')
-        print self.system
         if self.system == 'Windows':
             self.root.wm_iconbitmap('data' + sep + 're-wired.ico')
         if  self.system == 'Darwin':
@@ -221,6 +220,8 @@ class gui:
         self.advanced.trackertoggle.set(self.config['trackerRegister'])
         self.advanced.trackerurl.delete(0, tk.END)
         self.advanced.trackerurl.insert(0, self.config['trackerUrl'])
+        self.advanced.trackerdns.delete(0, tk.END)
+        self.advanced.trackerdns.insert(0, self.config['trackerDNS'])
         self.advanced.indextoggle.set(self.config['doIndex'])
         self.advanced.indexinterval.delete(0, tk.END)
         self.advanced.indexinterval.insert(0, self.config['indexInterval'])
