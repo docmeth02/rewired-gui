@@ -121,17 +121,22 @@ def deleteData(parent, name, type):
 
 def rewriteConfig(config):
     try:
-        config.pop('serverStarted')
-        version = config['appVersion']
+        version = str(config['appVersion'])
+        name = str(config.pop('appName'))
         config.pop('appVersion')
         config.pop('appName')
         config.pop('banner')
+        config.pop('serverStarted')  # this will fail when server has not been run yet
+    except KeyError:
+        pass
+    try:
         config['serverDesc'] = config['serverDesc'].encode('UTF-8')
         config['serverName'] = config['serverName'].encode('UTF-8')
-    except KeyError:
+    except:
         pass
     config.write()
     config['appVersion'] = version
+    config['appName'] = name
     return 1
 
 
