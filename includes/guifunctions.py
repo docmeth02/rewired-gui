@@ -126,6 +126,8 @@ def rewriteConfig(config):
         config.pop('appVersion')
         config.pop('appName')
         config.pop('banner')
+        config['serverDesc'] = config['serverDesc'].encode('UTF-8')
+        config['serverName'] = config['serverName'].encode('UTF-8')
     except KeyError:
         pass
     config.write()
