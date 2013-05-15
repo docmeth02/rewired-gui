@@ -2,7 +2,7 @@ import platform
 from Tkinter import END
 from time import sleep
 from os.path import expanduser, join, exists
-from os import mkdir, sep
+from os import mkdir, sep, getcwd
 from shutil import copyfile, copytree
 from logging import getLogger
 from rewiredserver.includes import wiredfunctions, wireddb, wiredcertificate
@@ -95,6 +95,9 @@ def initConfig(parent):
         file = open(config['logFile'], "w")
         file.write("Blank Logfile\n")
         file.close()
+    git = gitVersion()
+    if git:
+        config['appVersion'] = git
     return config
 
 
@@ -138,6 +141,19 @@ def rewriteConfig(config):
     config['appVersion'] = version
     config['appName'] = name
     return 1
+
+
+def gitVersion():
+    if exists(join(getcwd(), "rewiredserver/includes/.gitversion")):
+        version = 0
+        print "YUP"
+        try:
+            with open(join(getcwd(), "rewiredserver/includes/.gitversion"), 'r') as f:
+                version = f.readline()
+        except (IOError, OSError):
+            return 0
+        return version.strip()
+    return 0
 
 
 def saveCopy(src, dst):
